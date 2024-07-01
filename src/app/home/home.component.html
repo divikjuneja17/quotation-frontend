@@ -1,0 +1,546 @@
+<ngx-loading
+    [show]="loading"
+    [config]="{ backdropBorderRadius: '3px', fullScreenBackdrop: true }"
+  ></ngx-loading>
+
+<div class="quote-form">
+  <div class="header">
+    <h1>BOLTCARGO</h1>
+    <div class="date">{{ formattedDate }}</div>
+  </div>
+
+  <h3>Quote Details</h3>
+
+  <form [formGroup]="quoteForm" (ngSubmit)="onSubmit()">
+    <div class="form-section">
+      <div class="row">
+        <div class="col-6 form-group">
+          <label for="from">From:</label>
+          <input
+            id="from"
+            formControlName="from"
+            type="text"
+            placeholder="Origin"
+          />
+        </div>
+
+        <div class="col-6 form-group">
+          <label for="to">To:</label>
+          <input
+            id="to"
+            formControlName="to"
+            type="text"
+            placeholder="Destination"
+          />
+        </div>
+      </div>
+      <div class="row">
+        <div
+          class="col-6 mb-10"
+          *ngIf="
+            this.quoteForm.controls.from.errors &&
+            (this.quoteForm.controls.from?.dirty ||
+              this.quoteForm.controls.from?.touched)
+          "
+        >
+          <div
+            class="error"
+            *ngIf="this.quoteForm.controls.from.errors['required']"
+          >
+            Required
+          </div>
+        </div>
+
+        <div
+          class="col-6 mb-10"
+          *ngIf="
+            this.quoteForm.controls.to.errors &&
+            (this.quoteForm.controls.to?.dirty ||
+              this.quoteForm.controls.to?.touched)
+          "
+        >
+          <div
+            class="error"
+            *ngIf="this.quoteForm.controls.to.errors['required']"
+          >
+            Required
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-6 form-group">
+          <label for="customer">Customer:</label>
+          <input
+            id="customer"
+            formControlName="customer"
+            type="text"
+            placeholder="Customer Name"
+          />
+        </div>
+        <div class="col-6 form-group">
+          <label for="customerId">Customer ID:</label>
+          <input
+            id="customerId"
+            formControlName="customerId"
+            type="text"
+            placeholder="Customer ID"
+          />
+        </div>
+      </div>
+      <div class="row">
+        <div
+          class="col-6 mb-10"
+          *ngIf="
+            this.quoteForm.controls.customer.errors &&
+            (this.quoteForm.controls.customer?.dirty ||
+              this.quoteForm.controls.customer?.touched)
+          "
+        >
+          <div
+            class="error"
+            *ngIf="this.quoteForm.controls.customer.errors['required']"
+          >
+            Required
+          </div>
+        </div>
+
+        <div
+          class="col-6 mb-10"
+          *ngIf="
+            this.quoteForm.controls.customerId.errors &&
+            (this.quoteForm.controls.customerId?.dirty ||
+              this.quoteForm.controls.customerId?.touched)
+          "
+        >
+          <div
+            class="error"
+            *ngIf="this.quoteForm.controls.customerId.errors['required']"
+          >
+            Required
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-6 form-group">
+          <label for="validity">Validity:</label>
+          <input
+            id="validity"
+            formControlName="validity"
+            type="text"
+            placeholder="Validity"
+          />
+        </div>
+        <div class="col-6 form-group">
+          <label for="transitTime">Transit Time:</label>
+          <input
+            id="transitTime"
+            formControlName="transitTime"
+            type="text"
+            placeholder="Transit Time"
+          />
+        </div>
+      </div>
+      <div class="row">
+        <div
+          class="col-6 mb-10"
+          *ngIf="
+            this.quoteForm.controls.validity.errors &&
+            (this.quoteForm.controls.validity?.dirty ||
+              this.quoteForm.controls.validity?.touched)
+          "
+        >
+          <div
+            class="error"
+            *ngIf="this.quoteForm.controls.validity.errors['required']"
+          >
+            Required
+          </div>
+        </div>
+
+        <div
+          class="col-6 mb-10"
+          *ngIf="
+            this.quoteForm.controls.transitTime.errors &&
+            (this.quoteForm.controls.transitTime?.dirty ||
+              this.quoteForm.controls.transitTime?.touched)
+          "
+        >
+          <div
+            class="error"
+            *ngIf="this.quoteForm.controls.transitTime.errors['required']"
+          >
+            Required
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-6 form-group">
+          <label for="freeTime">Free Time:</label>
+          <input
+            id="freeTime"
+            formControlName="freeTime"
+            type="text"
+            placeholder="Free Time"
+          />
+        </div>
+        <div class="col-6 form-group">
+          <label for="incoterms">Incoterms:</label>
+          <input
+            id="incoterms"
+            formControlName="incoterms"
+            type="text"
+            placeholder="Incoterms"
+          />
+        </div>
+      </div>
+      <div class="row">
+        <div
+          class="col-6 mb-10"
+          *ngIf="
+            this.quoteForm.controls.freeTime.errors &&
+            (this.quoteForm.controls.freeTime?.dirty ||
+              this.quoteForm.controls.freeTime?.touched)
+          "
+        >
+          <div
+            class="error"
+            *ngIf="this.quoteForm.controls.freeTime.errors['required']"
+          >
+            Required
+          </div>
+        </div>
+
+        <div
+          class="col-6 mb-10"
+          *ngIf="
+            this.quoteForm.controls.incoterms.errors &&
+            (this.quoteForm.controls.incoterms?.dirty ||
+              this.quoteForm.controls.incoterms?.touched)
+          "
+        >
+          <div
+            class="error"
+            *ngIf="this.quoteForm.controls.incoterms.errors['required']"
+          >
+            Required
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-6 form-group">
+          <label for="sailing">Sailing:</label>
+          <input
+            id="sailing"
+            formControlName="sailing"
+            type="text"
+            placeholder="Sailing"
+          />
+        </div>
+        <div class="col-6 form-group">
+          <label for="commodity">Commodity:</label>
+          <input
+            id="commodity"
+            formControlName="commodity"
+            type="text"
+            placeholder="Commodity"
+          />
+        </div>
+      </div>
+      <div class="row">
+        <div
+          class="col-6 mb-10"
+          *ngIf="
+            this.quoteForm.controls.sailing.errors &&
+            (this.quoteForm.controls.sailing?.dirty ||
+              this.quoteForm.controls.sailing?.touched)
+          "
+        >
+          <div
+            class="error"
+            *ngIf="this.quoteForm.controls.sailing.errors['required']"
+          >
+            Required
+          </div>
+        </div>
+
+        <div
+          class="col-6 mb-10"
+          *ngIf="
+            this.quoteForm.controls.commodity.errors &&
+            (this.quoteForm.controls.commodity?.dirty ||
+              this.quoteForm.controls.commodity?.touched)
+          "
+        >
+          <div
+            class="error"
+            *ngIf="this.quoteForm.controls.commodity.errors['required']"
+          >
+            Required
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-6 form-group">
+          <label for="salesPerson">Sales Person:</label>
+          <input
+            id="salesPerson"
+            formControlName="salesPerson"
+            type="text"
+            placeholder="Sales Person"
+          />
+        </div>
+        <div class="col-6 form-group">
+          <label for="importExport">Import/Export:</label>
+          <p-dropdown formControlName="importExport" [options]="this.importExportOptions" optionLabel="name" placeholder="--Select--"></p-dropdown>
+        </div>
+      </div>
+      <div class="row">
+        <div
+          class="col-6 mb-10"
+          *ngIf="
+            this.quoteForm.controls.salesPerson.errors &&
+            (this.quoteForm.controls.salesPerson?.dirty ||
+              this.quoteForm.controls.salesPerson?.touched)
+          "
+        >
+          <div
+            class="error"
+            *ngIf="this.quoteForm.controls.salesPerson.errors['required']"
+          >
+            Required
+          </div>
+        </div>
+
+        <div
+          class="col-6 mb-10"
+          *ngIf="
+            this.quoteForm.controls.importExport.errors &&
+            (this.quoteForm.controls.importExport?.dirty ||
+              this.quoteForm.controls.importExport?.touched)
+          "
+        >
+          <div
+            class="error"
+            *ngIf="this.quoteForm.controls.importExport.errors['required']"
+          >
+            Required
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-6 form-group">
+          <label for="lclFclWeight">LCL/FCL/Weight:</label>
+          <input
+            id="lclFclWeight"
+            formControlName="lclFclWeight"
+            type="text"
+            placeholder="LCL/FCL/Weight"
+          />
+        </div>
+        <div class="col-6 form-group">
+          <label for="unit">Unit:</label>
+          <input
+            id="unit"
+            formControlName="unit"
+            type="text"
+            placeholder="Unit"
+          />
+        </div>
+      </div>
+      <div class="row">
+        <div
+          class="col-6 mb-10"
+          *ngIf="
+            this.quoteForm.controls.lclFclWeight.errors &&
+            (this.quoteForm.controls.lclFclWeight?.dirty ||
+              this.quoteForm.controls.lclFclWeight?.touched)
+          "
+        >
+          <div
+            class="error"
+            *ngIf="this.quoteForm.controls.lclFclWeight.errors['required']"
+          >
+            Required
+          </div>
+        </div>
+
+        <div
+          class="col-6 mb-10"
+          *ngIf="
+            this.quoteForm.controls.unit.errors &&
+            (this.quoteForm.controls.unit?.dirty ||
+              this.quoteForm.controls.unit?.touched)
+          "
+        >
+          <div
+            class="error"
+            *ngIf="this.quoteForm.controls.unit.errors['required']"
+          >
+            Required
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-6 form-group">
+          <label for="status">Status:</label>
+          <textarea
+            id="status"
+            formControlName="status"
+            type="text"
+            placeholder="Status"
+          ></textarea>
+        </div>
+        <div class="col-6 form-group">
+          <label for="remarks">Remarks:</label>
+          <textarea
+            id="remarks"
+            formControlName="remarks"
+            type="text"
+            placeholder="Remarks"
+          ></textarea>
+        </div>
+      </div>
+      <div class="row">
+        <div
+          class="col-6 mb-10"
+          *ngIf="
+            this.quoteForm.controls.status.errors &&
+            (this.quoteForm.controls.status?.dirty ||
+              this.quoteForm.controls.status?.touched)
+          "
+        >
+          <div
+            class="error"
+            *ngIf="this.quoteForm.controls.status.errors['required']"
+          >
+            Required
+          </div>
+        </div>
+
+        <div
+          class="col-6 mb-10"
+          *ngIf="
+            this.quoteForm.controls.remarks.errors &&
+            (this.quoteForm.controls.remarks?.dirty ||
+              this.quoteForm.controls.remarks?.touched)
+          "
+        >
+          <div
+            class="error"
+            *ngIf="this.quoteForm.controls.remarks.errors['required']"
+          >
+            Required
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- <button class="add-new" (click)="addItem()">Add New Row</button> -->
+    <div formArrayName="items">
+      <p-table
+        [value]="items.controls"
+        dataKey="value.id"
+        styleClass="p-datatable-gridlines"
+        [tableStyle]="{ 'min-width': '50rem' }"
+      >
+        <ng-template pTemplate="header">
+          <tr>
+            <th style="width: 25%">Description</th>
+            <th style="width: 25%">Quantity</th>
+            <th style="width: 25%">Price</th>
+            <th style="width: 25%">Total</th>
+            <th style="width: 25%">Action</th>
+          </tr>
+        </ng-template>
+        <ng-template
+          pTemplate="body"
+          let-rowData
+          let-i="rowIndex"
+          let-editing="editing"
+        >
+          <tr [formGroupName]="i">
+            <td
+              [pEditableColumn]="rowData.get('description')"
+              pEditableColumnField="description"
+            >
+              <p-cellEditor>
+                <ng-template pTemplate="input">
+                  <input pInputText type="text" formControlName="description" />
+                </ng-template>
+                <ng-template pTemplate="output">
+                  {{ rowData.get("description").value }}
+                </ng-template>
+              </p-cellEditor>
+            </td>
+            <td
+              [pEditableColumn]="rowData.get('quantity')"
+              pEditableColumnField="quantity"
+            >
+              <p-cellEditor>
+                <ng-template pTemplate="input">
+                  <input
+                    pInputText
+                    type="text"
+                    formControlName="quantity"
+                    (change)="calculateTotalForEachRow(i)"
+                  />
+                </ng-template>
+                <ng-template pTemplate="output">
+                  {{ rowData.get("quantity").value }}
+                </ng-template>
+              </p-cellEditor>
+            </td>
+            <td
+              [pEditableColumn]="rowData.get('price')"
+              pEditableColumnField="price"
+            >
+              <p-cellEditor>
+                <ng-template pTemplate="input">
+                  <input
+                    pInputText
+                    type="text"
+                    formControlName="price"
+                    (change)="calculateTotalForEachRow(i)"
+                  />
+                </ng-template>
+                <ng-template pTemplate="output">
+                  {{ rowData.get("price").value }}
+                </ng-template>
+              </p-cellEditor>
+            </td>
+            <td>{{ rowData.get("total").value }}</td>
+            <td (click)="removeItem(i)">
+              <i class="fa-solid fa-trash" style="cursor: pointer"></i>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+
+    <i class="fa-solid fa-plus" style="cursor: pointer" (click)="addItem()"></i>
+
+    <div style="display: flex; justify-content: space-between">
+      <div class="form-section terms">
+        <label style="font-weight: bold">Terms and Conditions:</label>
+        <br />
+        <ul>
+          <li *ngFor="let text of this.terms">{{ text }}</li>
+        </ul>
+      </div>
+
+      <div class="form-section terms">
+        <label style="font-weight: bold">TOTAL: ${{ this.total }}</label>
+      </div>
+    </div>
+
+    <button type="submit" class="save-quote">Save Quote</button>
+  </form>
+</div>

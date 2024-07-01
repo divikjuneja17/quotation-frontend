@@ -1,0 +1,121 @@
+.quote-form {
+  margin: 20px 100px;
+  font-family: Arial, sans-serif;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header h1 {
+  font-size: 36px;
+  color: rgb(37 99 235);
+  font-weight: bold;
+}
+
+.header .date {
+  font-size: 20px;
+  color: #ffff;
+  font-weight: bold;
+  background-color: rgb(37 99 235);
+  padding: 15px;
+}
+
+h2,
+h3 {
+  color: rgb(37 99 235);
+  margin-top: 20px;
+  font-weight: bold;
+}
+
+.form-section {
+  margin: 20px 0px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+.form-group label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.form-group input,
+.form-group textarea {
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.table {
+  display: table;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table-header,
+.table-row {
+  display: table-row;
+}
+
+.table-cell {
+  display: table-cell;
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+
+.table-header .table-cell {
+  font-weight: bold;
+  background-color: #f2f2f2;
+}
+
+.save-quote {
+  background-color: #28a745;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.save-quote:hover {
+  background-color: #218838;
+}
+
+.add-new {
+  background-color: #2d88f7;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.error {
+  color: rgb(255, 0, 0);
+}
+
+.mb-10 {
+  margin-bottom: 10px;
+}
+
+:host ::ng-deep{
+  ol, ul{
+    padding-left: 0px !important;
+    margin-bottom: 0px !important;
+  }
+
+  /* .p-dropdown-label .p-inputtext{
+    margin-top: -5px !important;
+  }
+
+  .p-dropdown-open {
+    height: 41px !important;
+  } */
+}
