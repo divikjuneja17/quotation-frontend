@@ -18,7 +18,7 @@ interface Options {
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
-  providers: [DatePipe]
+  providers: [DatePipe],
 })
 export class HomeComponent implements OnInit {
   today = new Date();
@@ -57,7 +57,11 @@ export class HomeComponent implements OnInit {
     items: this.fb.array([]),
   });
 
-  constructor(private fb: FormBuilder, private http: HttpClient, private datePipe: DatePipe) {}
+  constructor(
+    private fb: FormBuilder,
+    private http: HttpClient,
+    private datePipe: DatePipe
+  ) {}
 
   ngOnInit(): void {
     this.formattedDate = this.datePipe.transform(this.today, 'MM/dd/yyyy');
@@ -71,7 +75,7 @@ export class HomeComponent implements OnInit {
     this.importExportOptions = [
       { name: 'Import', code: 'IMP' },
       { name: 'Export', code: 'EXP' },
-    ]
+    ];
   }
 
   get items() {
@@ -111,7 +115,6 @@ export class HomeComponent implements OnInit {
     });
   }
 
-
   onSubmit(): void {
     if (this.quoteForm.valid) {
       this.loading = true;
@@ -121,14 +124,14 @@ export class HomeComponent implements OnInit {
       const pdfData = {
         ...quoteData,
         date: this.formattedDate,
-        total: this.total
+        total: this.total,
       };
 
       this.http
-        .post('http://localhost:3000/api/quotes', pdfData, {
+        .post('https://quotation-backend.onrender.com/api/quotes', pdfData, {
           responseType: 'blob',
         })
-        .subscribe((response) => {
+        .subscribe((response: any) => {
           const blob = new Blob([response], { type: 'application/pdf' });
           const url = window.URL.createObjectURL(blob);
           const a = document.createElement('a');
@@ -139,7 +142,7 @@ export class HomeComponent implements OnInit {
           this.loading = false;
         });
     } else {
-      Object.keys(this.quoteForm.controls).forEach(field => {
+      Object.keys(this.quoteForm.controls).forEach((field) => {
         const control = this.quoteForm.get(field);
         control?.markAsTouched({ onlySelf: true });
       });
