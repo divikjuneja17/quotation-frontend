@@ -10,6 +10,8 @@ import { TableModule } from 'primeng/table';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DropdownModule } from 'primeng/dropdown';
 import { NgxLoadingModule } from "ngx-loading";
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ToastModule } from 'primeng/toast';
 
 @NgModule({
   declarations: [AppComponent, HomeComponent],
@@ -22,7 +24,9 @@ import { NgxLoadingModule } from "ngx-loading";
     TableModule,
     BrowserAnimationsModule,
     DropdownModule,
-    NgxLoadingModule.forRoot({})
+    NgxLoadingModule.forRoot({}),
+    ConfirmDialogModule,
+    ToastModule
   ],
   providers: [],
   bootstrap: [AppComponent],

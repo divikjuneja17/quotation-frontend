@@ -8,6 +8,7 @@ import {
 } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
+import { ConfirmEventType, ConfirmationService, MessageService } from 'primeng/api';
 
 interface Options {
   name: string;
@@ -18,13 +19,16 @@ interface Options {
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
-  providers: [DatePipe],
+  providers: [DatePipe, ConfirmationService, MessageService]
 })
 export class HomeComponent implements OnInit {
   today = new Date();
   formattedDate!: any;
 
   importExportOptions: Options[] | undefined;
+  incotermsOptions: Options[] | undefined;
+  salespersonOptions: Options[] | undefined;
+  unitOptions: Options[] | undefined;
 
   terms = [
     'All rates quoted are valid for 15 days.',
@@ -57,10 +61,8 @@ export class HomeComponent implements OnInit {
     items: this.fb.array([]),
   });
 
-  constructor(
-    private fb: FormBuilder,
-    private http: HttpClient,
-    private datePipe: DatePipe
+  constructor(private fb: FormBuilder, private http: HttpClient, private datePipe: DatePipe,
+    private confirmationService: ConfirmationService, private messageService: MessageService
   ) {}
 
   ngOnInit(): void {
@@ -76,6 +78,42 @@ export class HomeComponent implements OnInit {
       { name: 'Import', code: 'IMP' },
       { name: 'Export', code: 'EXP' },
     ];
+
+    this.incotermsOptions = [
+      { name: 'EX Works', code: 'EX' },
+      { name: 'FCA', code: 'FCA' },
+      { name: 'CPT', code: 'CPT' },
+      { name: 'CIP', code: 'CIP' },
+      { name: 'DAP', code: 'DAP' },
+      { name: 'DPU', code: 'DPU' },
+      { name: 'DDP', code: 'DDP' },
+      { name: 'FAS', code: 'FAS' },
+      { name: 'FOB', code: 'FOB' },
+      { name: 'CIF', code: 'CIF' },
+    ]
+
+    this.salespersonOptions = [
+      { name: 'Rishabh Chaudhary', code: 'RC' },
+      { name: 'Vivek Uniyal', code: 'VU' },
+      { name: 'Kartik Wadhwa', code: 'KW' }
+    ]
+
+    this.unitOptions = [
+      { name: '20STD', code: '20STD' },
+      { name: '20HC', code: '20HC' },
+      { name: '20OT', code: '20OT' },
+      { name: '20RF', code: '20RF' },
+      { name: '20FR', code: '20FR' },
+      { name: '40STD', code: '40STD'},
+      { name: '40HC', code: '40HC' },
+      { name: '40OT', code: '40OT' },
+      { name: '40RF', code: '40RF' },
+      { name: '40FR', code: '40FR' },
+      { name: 'NOR', code: 'NOR' },
+      { name: '4SHC', code: '4SHC' },
+      { name: 'BBK', code: 'BBK' },
+      { name: 'AIR', code: 'AIR' },
+    ]
   }
 
   get items() {
@@ -110,43 +148,64 @@ export class HomeComponent implements OnInit {
   }
 
   calculateSumTotal() {
+    this.total = 0;
     this.items.controls.forEach((x) => {
       this.total = this.total + x.get('total')?.value;
     });
   }
 
   onSubmit(): void {
-    if (this.quoteForm.valid) {
-      this.loading = true;
+    this.confirmationService.confirm({
+      message: 'Are you sure that you have closed your excel file?',
+      header: 'Confirmation',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+          if (this.quoteForm.valid) {
+            this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'PDF is generating...Please wait.' });
 
-      const quoteData = this.quoteForm.value;
-
-      const pdfData = {
-        ...quoteData,
-        date: this.formattedDate,
-        total: this.total,
-      };
-
-      this.http
-        .post('https://quotation-backend.onrender.com/api/quotes', pdfData, {
-          responseType: 'blob',
-        })
-        .subscribe((response: any) => {
-          const blob = new Blob([response], { type: 'application/pdf' });
-          const url = window.URL.createObjectURL(blob);
-          const a = document.createElement('a');
-          a.href = url;
-          a.download = 'quote.pdf';
-          a.click();
-          window.URL.revokeObjectURL(url);
-          this.loading = false;
-        });
-    } else {
-      Object.keys(this.quoteForm.controls).forEach((field) => {
-        const control = this.quoteForm.get(field);
-        control?.markAsTouched({ onlySelf: true });
-      });
-      this.loading = false;
-    }
+            this.loading = true;
+      
+            const quoteData = this.quoteForm.value;
+      
+            const pdfData = {
+              ...quoteData,
+              date: this.formattedDate,
+              total: this.total
+            };
+      
+            this.http
+              .post('http://localhost:3000/api/quotes', pdfData, {
+                responseType: 'blob',
+              })
+              .subscribe((response) => {
+                const blob = new Blob([response], { type: 'application/pdf' });
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'quote.pdf';
+                a.click();
+                window.URL.revokeObjectURL(url);
+                this.loading = false;
+              });
+          } else {
+            Object.keys(this.quoteForm.controls).forEach(field => {
+              const control = this.quoteForm.get(field);
+              control?.markAsTouched({ onlySelf: true });
+            });
+            this.loading = false;
+            this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'Please fill the required fields.' });
+          }
+      },
+      reject: (type: any) => {
+          switch (type) {
+              case ConfirmEventType.REJECT:
+                  this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected.' });
+                  break;
+              case ConfirmEventType.CANCEL:
+                  this.messageService.add({ severity: 'warn', summary: 'Cancelled', detail: 'You have cancelled.' });
+                  break;
+          }
+      }
+    });
   }
 }

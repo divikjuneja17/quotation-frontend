@@ -125,19 +125,21 @@
       <div class="row">
         <div class="col-6 form-group">
           <label for="validity">Validity:</label>
-          <input
+          <!-- <input
             id="validity"
             formControlName="validity"
             type="text"
             placeholder="Validity"
-          />
+          /> -->
+          <input id="validity" placeholder="Date" formControlName="validity"
+            type="date"/>
         </div>
         <div class="col-6 form-group">
           <label for="transitTime">Transit Time:</label>
           <input
             id="transitTime"
             formControlName="transitTime"
-            type="text"
+            type="number"
             placeholder="Transit Time"
           />
         </div>
@@ -182,18 +184,14 @@
           <input
             id="freeTime"
             formControlName="freeTime"
-            type="text"
+            type="number"
             placeholder="Free Time"
           />
         </div>
         <div class="col-6 form-group">
-          <label for="incoterms">Incoterms:</label>
-          <input
-            id="incoterms"
-            formControlName="incoterms"
-            type="text"
-            placeholder="Incoterms"
-          />
+          <label for="sailing">Sailing:</label>
+          <input id="sailing" placeholder="Date" formControlName="sailing"
+            type="date"/>
         </div>
       </div>
       <div class="row">
@@ -216,44 +214,6 @@
         <div
           class="col-6 mb-10"
           *ngIf="
-            this.quoteForm.controls.incoterms.errors &&
-            (this.quoteForm.controls.incoterms?.dirty ||
-              this.quoteForm.controls.incoterms?.touched)
-          "
-        >
-          <div
-            class="error"
-            *ngIf="this.quoteForm.controls.incoterms.errors['required']"
-          >
-            Required
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-6 form-group">
-          <label for="sailing">Sailing:</label>
-          <input
-            id="sailing"
-            formControlName="sailing"
-            type="text"
-            placeholder="Sailing"
-          />
-        </div>
-        <div class="col-6 form-group">
-          <label for="commodity">Commodity:</label>
-          <input
-            id="commodity"
-            formControlName="commodity"
-            type="text"
-            placeholder="Commodity"
-          />
-        </div>
-      </div>
-      <div class="row">
-        <div
-          class="col-6 mb-10"
-          *ngIf="
             this.quoteForm.controls.sailing.errors &&
             (this.quoteForm.controls.sailing?.dirty ||
               this.quoteForm.controls.sailing?.touched)
@@ -262,71 +222,6 @@
           <div
             class="error"
             *ngIf="this.quoteForm.controls.sailing.errors['required']"
-          >
-            Required
-          </div>
-        </div>
-
-        <div
-          class="col-6 mb-10"
-          *ngIf="
-            this.quoteForm.controls.commodity.errors &&
-            (this.quoteForm.controls.commodity?.dirty ||
-              this.quoteForm.controls.commodity?.touched)
-          "
-        >
-          <div
-            class="error"
-            *ngIf="this.quoteForm.controls.commodity.errors['required']"
-          >
-            Required
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-6 form-group">
-          <label for="salesPerson">Sales Person:</label>
-          <input
-            id="salesPerson"
-            formControlName="salesPerson"
-            type="text"
-            placeholder="Sales Person"
-          />
-        </div>
-        <div class="col-6 form-group">
-          <label for="importExport">Import/Export:</label>
-          <p-dropdown formControlName="importExport" [options]="this.importExportOptions" optionLabel="name" placeholder="--Select--"></p-dropdown>
-        </div>
-      </div>
-      <div class="row">
-        <div
-          class="col-6 mb-10"
-          *ngIf="
-            this.quoteForm.controls.salesPerson.errors &&
-            (this.quoteForm.controls.salesPerson?.dirty ||
-              this.quoteForm.controls.salesPerson?.touched)
-          "
-        >
-          <div
-            class="error"
-            *ngIf="this.quoteForm.controls.salesPerson.errors['required']"
-          >
-            Required
-          </div>
-        </div>
-
-        <div
-          class="col-6 mb-10"
-          *ngIf="
-            this.quoteForm.controls.importExport.errors &&
-            (this.quoteForm.controls.importExport?.dirty ||
-              this.quoteForm.controls.importExport?.touched)
-          "
-        >
-          <div
-            class="error"
-            *ngIf="this.quoteForm.controls.importExport.errors['required']"
           >
             Required
           </div>
@@ -344,12 +239,12 @@
           />
         </div>
         <div class="col-6 form-group">
-          <label for="unit">Unit:</label>
+          <label for="commodity">Commodity:</label>
           <input
-            id="unit"
-            formControlName="unit"
+            id="commodity"
+            formControlName="commodity"
             type="text"
-            placeholder="Unit"
+            placeholder="Commodity"
           />
         </div>
       </div>
@@ -373,6 +268,74 @@
         <div
           class="col-6 mb-10"
           *ngIf="
+            this.quoteForm.controls.commodity.errors &&
+            (this.quoteForm.controls.commodity?.dirty ||
+              this.quoteForm.controls.commodity?.touched)
+          "
+        >
+          <div
+            class="error"
+            *ngIf="this.quoteForm.controls.commodity.errors['required']"
+          >
+            Required
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-3 form-group">
+          <label for="salesPerson">Sales Person:</label>
+          <p-dropdown formControlName="salesPerson" [options]="this.salespersonOptions" optionLabel="name" placeholder="--Select--"></p-dropdown>
+        </div>
+        <div class="col-3 form-group">
+          <label for="importExport">Import/Export:</label>
+          <p-dropdown formControlName="importExport" [options]="this.importExportOptions" optionLabel="name" placeholder="--Select--"></p-dropdown>
+        </div>
+        <div class="col-3 form-group">
+          <label for="unit">Unit:</label>
+          <p-dropdown formControlName="unit" [options]="this.unitOptions" optionLabel="name" placeholder="--Select--"></p-dropdown>
+        </div>
+        <div class="col-3 form-group">
+          <label for="incoterms">Incoterms:</label>
+          <p-dropdown formControlName="incoterms" [options]="this.incotermsOptions" optionLabel="name" placeholder="--Select--"></p-dropdown>
+        </div>
+      </div>
+      <div class="row">
+        <div
+          class="col-3 mb-10"
+          *ngIf="
+            this.quoteForm.controls.salesPerson.errors &&
+            (this.quoteForm.controls.salesPerson?.dirty ||
+              this.quoteForm.controls.salesPerson?.touched)
+          "
+        >
+          <div
+            class="error"
+            *ngIf="this.quoteForm.controls.salesPerson.errors['required']"
+          >
+            Required
+          </div>
+        </div>
+
+        <div
+          class="col-3 mb-10"
+          *ngIf="
+            this.quoteForm.controls.importExport.errors &&
+            (this.quoteForm.controls.importExport?.dirty ||
+              this.quoteForm.controls.importExport?.touched)
+          "
+        >
+          <div
+            class="error"
+            *ngIf="this.quoteForm.controls.importExport.errors['required']"
+          >
+            Required
+          </div>
+        </div>
+
+        <div
+          class="col-3 mb-10"
+          *ngIf="
             this.quoteForm.controls.unit.errors &&
             (this.quoteForm.controls.unit?.dirty ||
               this.quoteForm.controls.unit?.touched)
@@ -381,6 +344,22 @@
           <div
             class="error"
             *ngIf="this.quoteForm.controls.unit.errors['required']"
+          >
+            Required
+          </div>
+        </div>
+
+        <div
+          class="col-3 mb-10"
+          *ngIf="
+            this.quoteForm.controls.incoterms.errors &&
+            (this.quoteForm.controls.incoterms?.dirty ||
+              this.quoteForm.controls.incoterms?.touched)
+          "
+        >
+          <div
+            class="error"
+            *ngIf="this.quoteForm.controls.incoterms.errors['required']"
           >
             Required
           </div>
@@ -490,7 +469,7 @@
                     pInputText
                     type="text"
                     formControlName="quantity"
-                    (change)="calculateTotalForEachRow(i)"
+                    (change)="calculateTotalForEachRow(i); calculateSumTotal();"
                   />
                 </ng-template>
                 <ng-template pTemplate="output">
@@ -508,7 +487,7 @@
                     pInputText
                     type="text"
                     formControlName="price"
-                    (change)="calculateTotalForEachRow(i)"
+                    (change)="calculateTotalForEachRow(i); calculateSumTotal();"
                   />
                 </ng-template>
                 <ng-template pTemplate="output">
@@ -517,7 +496,7 @@
               </p-cellEditor>
             </td>
             <td>{{ rowData.get("total").value }}</td>
-            <td (click)="removeItem(i)">
+            <td (click)="removeItem(i); calculateSumTotal();">
               <i class="fa-solid fa-trash" style="cursor: pointer"></i>
             </td>
           </tr>
@@ -531,7 +510,7 @@
       <div class="form-section terms">
         <label style="font-weight: bold">Terms and Conditions:</label>
         <br />
-        <ul>
+        <ul class="ml-30">
           <li *ngFor="let text of this.terms">{{ text }}</li>
         </ul>
       </div>
@@ -543,4 +522,9 @@
 
     <button type="submit" class="save-quote">Save Quote</button>
   </form>
+</div>
+
+<div class="card flex justify-content-center gap-2">
+  <p-toast></p-toast>
+  <p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>
 </div>
