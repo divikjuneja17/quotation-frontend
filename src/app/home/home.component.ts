@@ -45,11 +45,16 @@ export class HomeComponent implements OnInit {
 
   public loading = false;
 
+  uniqueCustomerId = this.generateUniqueId();
+
   quoteForm = this.fb.group({
     from: ['', Validators.required],
     to: ['', Validators.required],
     customer: ['', Validators.required],
-    customerId: ['', Validators.required],
+    customerId: [
+      { value: this.uniqueCustomerId, disabled: true },
+      Validators.required,
+    ],
     validity: ['', Validators.required],
     transitTime: ['', Validators.required],
     freeTime: ['', Validators.required],
@@ -162,6 +167,10 @@ export class HomeComponent implements OnInit {
     });
   }
 
+  generateUniqueId(): string {
+    return Math.floor(10000000 + Math.random() * 90000000).toString();
+  }
+
   onSubmit(): void {
     this.confirmationService.confirm({
       message: 'Are you sure that you have closed your excel file?',
@@ -183,16 +192,13 @@ export class HomeComponent implements OnInit {
             ...quoteData,
             date: this.formattedDate,
             total: this.total,
+            customerId: this.uniqueCustomerId,
           };
 
           this.http
-            .post(
-              'https://quotation-backend.onrender.com/api/quotes',
-              pdfData,
-              {
-                responseType: 'blob',
-              }
-            )
+            .post('http://localhost:3000/api/quotes', pdfData, {
+              responseType: 'blob',
+            })
             .subscribe((response) => {
               const blob = new Blob([response], { type: 'application/pdf' });
               const url = window.URL.createObjectURL(blob);

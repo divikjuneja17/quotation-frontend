@@ -1,7 +1,7 @@
 <ngx-loading
-    [show]="loading"
-    [config]="{ backdropBorderRadius: '3px', fullScreenBackdrop: true }"
-  ></ngx-loading>
+  [show]="loading"
+  [config]="{ backdropBorderRadius: '3px', fullScreenBackdrop: true }"
+></ngx-loading>
 
 <div class="quote-form">
   <div class="header">
@@ -131,8 +131,12 @@
             type="text"
             placeholder="Validity"
           /> -->
-          <input id="validity" placeholder="Date" formControlName="validity"
-            type="date"/>
+          <input
+            id="validity"
+            placeholder="Date"
+            formControlName="validity"
+            type="date"
+          />
         </div>
         <div class="col-6 form-group">
           <label for="transitTime">Transit Time:</label>
@@ -190,8 +194,12 @@
         </div>
         <div class="col-6 form-group">
           <label for="sailing">Sailing:</label>
-          <input id="sailing" placeholder="Date" formControlName="sailing"
-            type="date"/>
+          <input
+            id="sailing"
+            placeholder="Date"
+            formControlName="sailing"
+            type="date"
+          />
         </div>
       </div>
       <div class="row">
@@ -285,19 +293,39 @@
       <div class="row">
         <div class="col-3 form-group">
           <label for="salesPerson">Sales Person:</label>
-          <p-dropdown formControlName="salesPerson" [options]="this.salespersonOptions" optionLabel="name" placeholder="--Select--"></p-dropdown>
+          <p-dropdown
+            formControlName="salesPerson"
+            [options]="this.salespersonOptions"
+            optionLabel="name"
+            placeholder="--Select--"
+          ></p-dropdown>
         </div>
         <div class="col-3 form-group">
           <label for="importExport">Import/Export:</label>
-          <p-dropdown formControlName="importExport" [options]="this.importExportOptions" optionLabel="name" placeholder="--Select--"></p-dropdown>
+          <p-dropdown
+            formControlName="importExport"
+            [options]="this.importExportOptions"
+            optionLabel="name"
+            placeholder="--Select--"
+          ></p-dropdown>
         </div>
         <div class="col-3 form-group">
           <label for="unit">Unit:</label>
-          <p-dropdown formControlName="unit" [options]="this.unitOptions" optionLabel="name" placeholder="--Select--"></p-dropdown>
+          <p-dropdown
+            formControlName="unit"
+            [options]="this.unitOptions"
+            optionLabel="name"
+            placeholder="--Select--"
+          ></p-dropdown>
         </div>
         <div class="col-3 form-group">
           <label for="incoterms">Incoterms:</label>
-          <p-dropdown formControlName="incoterms" [options]="this.incotermsOptions" optionLabel="name" placeholder="--Select--"></p-dropdown>
+          <p-dropdown
+            formControlName="incoterms"
+            [options]="this.incotermsOptions"
+            optionLabel="name"
+            placeholder="--Select--"
+          ></p-dropdown>
         </div>
       </div>
       <div class="row">
@@ -419,7 +447,6 @@
           </div>
         </div>
       </div>
-
     </div>
 
     <!-- <button class="add-new" (click)="addItem()">Add New Row</button> -->
@@ -469,7 +496,7 @@
                     pInputText
                     type="text"
                     formControlName="quantity"
-                    (change)="calculateTotalForEachRow(i); calculateSumTotal();"
+                    (change)="calculateTotalForEachRow(i); calculateSumTotal()"
                   />
                 </ng-template>
                 <ng-template pTemplate="output">
@@ -487,7 +514,7 @@
                     pInputText
                     type="text"
                     formControlName="price"
-                    (change)="calculateTotalForEachRow(i); calculateSumTotal();"
+                    (change)="calculateTotalForEachRow(i); calculateSumTotal()"
                   />
                 </ng-template>
                 <ng-template pTemplate="output">
@@ -496,7 +523,7 @@
               </p-cellEditor>
             </td>
             <td>{{ rowData.get("total").value }}</td>
-            <td (click)="removeItem(i); calculateSumTotal();">
+            <td (click)="removeItem(i); calculateSumTotal()">
               <i class="fa-solid fa-trash" style="cursor: pointer"></i>
             </td>
           </tr>
@@ -526,5 +553,5 @@
 
 <div class="card flex justify-content-center gap-2">
   <p-toast></p-toast>
-  <p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>
+  <p-confirmDialog [style]="{ width: '50vw' }"></p-confirmDialog>
 </div>
