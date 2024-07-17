@@ -35,10 +35,17 @@ export class HomeComponent implements OnInit {
   unitOptions: Options[] | undefined;
 
   terms = [
-    'All rates quoted are valid for 15 days.',
-    '40% payment should be done in advance.',
-    'No returns will be accepted after 20 days.',
-    'The remaining amount should be paid within 20 days of delivery.',
+    // 'All rates quoted are valid for 15 days.',
+    // '40% payment should be done in advance.',
+    // 'No returns will be accepted after 20 days.',
+    // 'The remaining amount should be paid within 20 days of delivery.',
+    'Subject to space and equipment.',
+    'Rate subject to changes at the time booking.',
+    'Subject to taxes as applicable at time of shipment.',
+    'Carrier BL terms and conditions applicable.',
+    'GRI and other surcharges as applicable (if announced after day of quotation).',
+    'Limited Liability up to 3% of agreed freight.',
+    'Insurance for cargo and container, transit in scope of shipper/consignee.',
   ];
 
   total: number = 0;
